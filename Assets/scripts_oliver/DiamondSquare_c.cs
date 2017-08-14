@@ -82,6 +82,9 @@ public class DiamondSquare_c : MonoBehaviour {
 			mHeight *= 0.5f;//Modify
 		}
 
+
+
+		// apply to the height map
 		mesh.vertices =mVerts;
 		mesh.uv = uvs;
 		mesh.triangles=tris;

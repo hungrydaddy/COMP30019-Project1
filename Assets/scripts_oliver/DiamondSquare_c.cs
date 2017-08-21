@@ -43,7 +43,7 @@ public class DiamondSquare_c : MonoBehaviour {
         // increment 6 count per loop to calculate the next group
 		int triOffset = 0;
 
-		for(int i = 1; i <=divisionsCount; i++) {
+		for(int i = 0; i <=divisionsCount; i++) {
 			for(int j = 0; j<=divisionsCount;j++) {
                 // Set vertices
 				vertices[i * (divisionsCount+1)+j] = new Vector3(-halfSize+j*divisionSize,0.0f,halfSize-i*divisionSize);

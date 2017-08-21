@@ -5,8 +5,8 @@ using UnityEngine;
 public class DiamondSquare_c : MonoBehaviour {
 
 	public int divisionsCount;
-	public float mSize;
-	public float mHeight;
+	public float totalSize;
+	public float height;
 
 	Vector3[] vertices;
 	int totalvertices;
@@ -29,9 +29,9 @@ public class DiamondSquare_c : MonoBehaviour {
 		int[] tris = new int[divisionsCount * divisionsCount * 6];
 
         //half size of the terrain
-		float halfSize = mSize * 0.5f;
+		float halfSize = totalSize * 0.5f;
         //each small square size
-		float divisionSize = mSize / divisionsCount;
+		float divisionSize = totalSize / divisionsCount;
 
         // Create a new mesh
 		Mesh mesh = new Mesh ();
@@ -84,13 +84,13 @@ public class DiamondSquare_c : MonoBehaviour {
         //Start from four edges
 
         //top left
-		vertices [0].y = Random.Range (-mHeight, mHeight);
+		vertices [0].y = Random.Range (-height, height);
         //top right
-		vertices [divisionsCount].y = Random.Range (-mHeight, mHeight);
+		vertices [divisionsCount].y = Random.Range (-height, height);
         //bottom right
-		vertices [vertices.Length - 1].y = Random.Range (-mHeight, mHeight);
+		vertices [vertices.Length - 1].y = Random.Range (-height, height);
         //bottom left
-		vertices [vertices.Length - 1 - divisionsCount].y = Random.Range (-mHeight, mHeight);
+		vertices [vertices.Length - 1 - divisionsCount].y = Random.Range (-height, height);
 
 
         // number of iterations needed to be performed based on the division
@@ -107,7 +107,7 @@ public class DiamondSquare_c : MonoBehaviour {
 				int col = 0;
                 // iterater each square
 				for (int k = 0; k < numSquares; k++) {
-					DiamondSquare (row, col, squareSize, mHeight);
+					DiamondSquare (row, col, squareSize, height);
 					col += squareSize;
 				}
 				row += squareSize;
@@ -115,7 +115,7 @@ public class DiamondSquare_c : MonoBehaviour {
 			numSquares *= 2;
 			squareSize /= 2;
             //Modify to control the change of height
-			mHeight *= 0.5f;
+			height *= 0.5f;
 		}
 
 

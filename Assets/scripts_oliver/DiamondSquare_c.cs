@@ -14,6 +14,7 @@ public class DiamondSquare_c : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CreateTerrain ();
+
 	}
 
     // Create height map
@@ -128,6 +129,10 @@ public class DiamondSquare_c : MonoBehaviour {
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
 
+		//Add collision to generated mesh
+		MeshCollider meshc = gameObject.AddComponent (typeof(MeshCollider)) as MeshCollider;
+		meshc.sharedMesh = mesh;
+	
 	}
 
 	void DiamondSquare(int row, int col, int size, float offset) {

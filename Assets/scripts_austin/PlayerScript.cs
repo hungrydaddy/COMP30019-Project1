@@ -20,11 +20,12 @@ public class PlayerScript : MonoBehaviour {
 	public float moveSpeed = 5;
 	public float rotateSpeed = 1;
 
-
+	bool shouldMove = true;
 
 	// Use this for initialization
 	void Start() {
-		// TODO
+		this.transform.localPosition = new Vector3 (0.0f,500.0f,0.0f);
+
 
 	}
 
@@ -32,7 +33,15 @@ public class PlayerScript : MonoBehaviour {
 
 	// late update
 	void LateUpdate() {
-		this.applyKeyboard();
+		//checks if colliding with the terrain
+		if (shouldMove) {
+			//prevents bouncing off terrain
+			this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+			this.applyKeyboard ();
+		} else {
+			shouldMove = true;
+		}
 		this.applyMouse();
 	}
 
@@ -76,7 +85,14 @@ public class PlayerScript : MonoBehaviour {
 		this.transform.Rotate(Vector3.right, -mouseY * sensitivityY);
 	}
 
-
+	void OnCollisionEnter (Collision collision) {
+		//stops player moving through terrain
+		if (collision.gameObject.name == "Ground") {
+			this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+			shouldMove = false;
+		}
+	}
 
 
 }

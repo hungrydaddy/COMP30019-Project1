@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts_austin/PlayerScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts_austin/groundShader.shader">
     <Files>
-      <File FileName="Assets/scripts_austin/PlayerScript.cs" Line="42" Column="19" />
+      <File FileName="Assets/scripts_austin/PlayerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts_oliver/DiamondSquare_c.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts_austin/groundShader.shader" Line="5" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

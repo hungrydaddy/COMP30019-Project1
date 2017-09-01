@@ -7,6 +7,7 @@ public class DiamondSquare_c : MonoBehaviour {
 	public int divisionsCount;
 	public float totalSize;
 	public float height;
+	public float factor;
 	float maxHeight = float.MinValue;
 	float minHeight = float.MaxValue;
 
@@ -17,6 +18,15 @@ public class DiamondSquare_c : MonoBehaviour {
 	void Start () {
 		CreateTerrain ();
 		CreateBoundaries ();
+	}
+
+	private static float LimitedRandom(float height, float factor) {
+		float rand = Random.Range (-height * (1 - factor), height * (1 - factor));
+		if (rand < 0) {
+			return rand - factor * height;
+		} else {
+			return rand + factor * height;
+		}
 	}
 
     // Create height map
@@ -87,13 +97,13 @@ public class DiamondSquare_c : MonoBehaviour {
         //Start from four edges
 
         //top left
-		vertices [0].y = Random.Range (-height, height);
+		vertices [0].y = LimitedRandom(height, factor);
         //top right
-		vertices [divisionsCount].y = Random.Range (-height, height);
+		vertices [divisionsCount].y = LimitedRandom(height, factor);
         //bottom right
-		vertices [vertices.Length - 1].y = Random.Range (-height, height);
+		vertices [vertices.Length - 1].y = LimitedRandom(height, factor);
         //bottom left
-		vertices [vertices.Length - 1 - divisionsCount].y = Random.Range (-height, height);
+		vertices [vertices.Length - 1 - divisionsCount].y = LimitedRandom(height, factor);
 
 
         // number of iterations needed to be performed based on the division
@@ -102,6 +112,7 @@ public class DiamondSquare_c : MonoBehaviour {
         //initial number of square
 		int numSquares = 1;
 
+		float tempHeight = this.height;
 		int squareSize = divisionsCount;
 		for(int i = 0;i < iterations; i++) {
 
@@ -110,7 +121,7 @@ public class DiamondSquare_c : MonoBehaviour {
 				int col = 0;
                 // iterater each square
 				for (int k = 0; k < numSquares; k++) {
-					DiamondSquare (row, col, squareSize, height);
+					DiamondSquare (row, col, squareSize, tempHeight);
 					col += squareSize;
 				}
 				row += squareSize;
@@ -118,7 +129,7 @@ public class DiamondSquare_c : MonoBehaviour {
 			numSquares *= 2;
 			squareSize /= 2;
             //Modify to control the change of height
-			height *= 0.5f;
+			tempHeight *= 0.5f;
 		}
 
 

@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		// setting the starting position
-		this.transform.localPosition = new Vector3 (-70f, 60f, -70f);
+		this.transform.localPosition = new Vector3 (-55f, 70f, -55f);
 		this.transform.localEulerAngles = new Vector3 (40f, 45f, 0f);
 	}
 

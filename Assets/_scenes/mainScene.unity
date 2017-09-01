@@ -764,7 +764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   divisionsCount: 128
   totalSize: 120
-  height: 20
+  height: 40
 --- !u!54 &1096858006
 Rigidbody:
   m_ObjectHideFlags: 0

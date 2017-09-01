@@ -24,7 +24,8 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		this.transform.localPosition = new Vector3 (0.0f,500.0f,0.0f);
+
+		this.transform.localPosition = new Vector3 (0.0f,10.0f,0.0f);
 
 
 	}

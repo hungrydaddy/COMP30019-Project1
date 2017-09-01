@@ -7,6 +7,8 @@ public class DiamondSquare_c : MonoBehaviour {
 	public int divisionsCount;
 	public float totalSize;
 	public float height;
+	float maxHeight = float.MinValue;
+	float minHeight = float.MaxValue;
 
 	Vector3[] vertices;
 	int totalvertices;
@@ -14,7 +16,7 @@ public class DiamondSquare_c : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CreateTerrain ();
-
+		CreateBoundaries ();
 	}
 
     // Create height map
@@ -130,8 +132,8 @@ public class DiamondSquare_c : MonoBehaviour {
 		mesh.RecalculateNormals();
 
 		//Add collision to generated mesh
-		MeshCollider meshc = gameObject.AddComponent (typeof(MeshCollider)) as MeshCollider;
-		meshc.sharedMesh = mesh;
+		MeshCollider meshCollider = gameObject.AddComponent (typeof(MeshCollider)) as MeshCollider;
+		meshCollider.sharedMesh = mesh;
 	
 	}
 
@@ -151,5 +153,50 @@ public class DiamondSquare_c : MonoBehaviour {
 		vertices[mid+halfSize].y = (vertices[topLeft+size].y+vertices[botLeft+size].y+vertices[mid].y)/3 + Random.Range (-offset, offset);
 		vertices[botLeft+halfSize].y = (vertices[botLeft].y+vertices[botLeft+size].y+vertices[mid].y)/3 + Random.Range (-offset, offset);
 
+		//checks all new heights to find min or max height for all terrain
+		CheckHeight (vertices [mid].y);
+		CheckHeight (vertices [topLeft + halfSize].y);
+		CheckHeight (vertices [mid-halfSize].y);
+		CheckHeight (vertices [mid+halfSize].y);
+		CheckHeight (vertices [botLeft+halfSize].y);
+	}
+
+	//scales invisible walls to size of terrain, and moves them down so they are just at the lowest point to allow for 
+	//suitable moving room above
+	void CreateBoundaries() {
+
+		GameObject northWall = GameObject.Find ("NorthWall");
+		northWall.transform.localPosition = new Vector3 (0.0f, totalSize/2+minHeight, totalSize/2);
+		northWall.transform.localScale = new Vector3 (totalSize, totalSize, 0.0f);
+
+		GameObject southWall = GameObject.Find ("SouthWall");
+		southWall.transform.localPosition = new Vector3 (0.0f, totalSize/2+minHeight, -totalSize/2);
+		southWall.transform.localScale = new Vector3 (totalSize, totalSize, 0.0f);
+
+		GameObject eastWall = GameObject.Find ("EastWall");
+		eastWall.transform.localPosition = new Vector3 (totalSize/2, totalSize/2+minHeight, 0.0f);
+		eastWall.transform.localScale = new Vector3 (0.0f, totalSize, totalSize);
+
+		GameObject westWall = GameObject.Find ("WestWall");
+		westWall.transform.localPosition = new Vector3 (-totalSize/2, totalSize/2+minHeight, 0.0f);
+		westWall.transform.localScale = new Vector3 (0.0f,totalSize, totalSize);
+
+		GameObject topWall = GameObject.Find ("TopWall");
+		topWall.transform.localPosition = new Vector3 (0.0f, totalSize+minHeight, 0.0f);
+		topWall.transform.localScale = new Vector3 (totalSize,0.0f, totalSize);
+
+		GameObject botWall = GameObject.Find ("BottomWall");
+		botWall.transform.localPosition = new Vector3 (0.0f, minHeight, 0.0f);
+		botWall.transform.localScale = new Vector3 (totalSize,0.0f, totalSize);
+	}
+
+	//will make sure min and max height are recorded once terrain is created
+	void CheckHeight(float height) {
+		if (height > maxHeight) {
+			maxHeight = height;
+		}
+		if (height < minHeight) {
+			minHeight = height;
+		}
 	}
 }

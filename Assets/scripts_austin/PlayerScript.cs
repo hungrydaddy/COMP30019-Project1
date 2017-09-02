@@ -12,9 +12,6 @@ public class PlayerScript : MonoBehaviour {
 	public float maximumX = 360F;
 	public float minimumY = -60F;
 	public float maximumY = 60F;
-	float rotationY = 0F;
-	float rotationX = 0F;
-	float rotationZ = 0F;
 
 
 	public float moveSpeed = 5;

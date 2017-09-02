@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DiamondSquare_c : MonoBehaviour {
 
-	public int divisionsCount;
-	public float totalSize;
-	public float height;
-	public float factor;
+	private int divisionsCount;
+	private float totalSize;
+	private float height;
+	private float factor;
 	float maxHeight = float.MinValue;
 	float minHeight = float.MaxValue;
 
@@ -16,6 +16,13 @@ public class DiamondSquare_c : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		// data presets
+		divisionsCount = 128;
+		totalSize = 120;
+		height = 30;
+		factor = 0.1f;
+
+
 		CreateTerrain ();
 		CreateBoundaries ();
 	}
@@ -96,14 +103,30 @@ public class DiamondSquare_c : MonoBehaviour {
 		//Algorithm
         //Start from four edges
 
+
+		// randomising the four corners
+		float[] corners = new float[4];
+		corners[0] = Random.Range(height * 0.9f, height);
+		corners[1] = Random.Range(height * 0, height * 0.1f);
+		corners[2] = Random.Range(height * 0, height);
+		corners[3] = Random.Range(height * 0, height);
+
+		corners = shuffle(corners);
+
+
+
         //top left
-		vertices [0].y = LimitedRandom(height, factor);
+		vertices [0].y = corners[0];
         //top right
-		vertices [divisionsCount].y = LimitedRandom(height, factor);
+		vertices [divisionsCount].y = corners[1];
         //bottom right
-		vertices [vertices.Length - 1].y = LimitedRandom(height, factor);
+		vertices [vertices.Length - 1].y = corners[2];
         //bottom left
-		vertices [vertices.Length - 1 - divisionsCount].y = LimitedRandom(height, factor);
+		vertices [vertices.Length - 1 - divisionsCount].y = corners[3];
+
+
+
+
 
 
         // number of iterations needed to be performed based on the division
@@ -193,7 +216,7 @@ public class DiamondSquare_c : MonoBehaviour {
 		westWall.transform.localScale = new Vector3 (0.0f,totalSize, totalSize);
 
 		GameObject topWall = GameObject.Find ("TopWall");
-		topWall.transform.localPosition = new Vector3 (0.0f, totalSize+minHeight, 0.0f);
+		topWall.transform.localPosition = new Vector3 (0.0f, 80, 0.0f);
 		topWall.transform.localScale = new Vector3 (totalSize,0.0f, totalSize);
 
 		GameObject botWall = GameObject.Find ("BottomWall");
@@ -210,4 +233,21 @@ public class DiamondSquare_c : MonoBehaviour {
 			minHeight = height;
 		}
 	}
+
+
+	// can shuffle the array
+	float[] shuffle(float[] list)
+	{
+		// Knuth shuffle algorithm :: courtesy of Wikipedia :)
+		for (int t = 0; t < list.Length; t++ )
+		{
+			float tmp = list[t];
+			int r = Random.Range(t, list.Length);
+			list[t] = list[r];
+			list[r] = tmp;
+		}
+
+		return list;
+	}
+
 }

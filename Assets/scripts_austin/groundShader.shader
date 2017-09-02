@@ -55,9 +55,9 @@ Shader "groundShader" {
             // color handling based on height
 			float height = 30;
 			float4 pixelColor;
-			if (input.vertex.y > height * 0.55f) {
+			if (input.vertex.y > height * 0.66f) {
 				pixelColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
-			} else if (input.vertex.y > height * 0.25f) {
+			} else if (input.vertex.y > height * 0.33f) {
 				pixelColor = float4(0.5f, 0.5f, 0.5f, 1.0f);
 			} else {
 				pixelColor = float4(0.5f, 1.0f, 0.0f, 1.0f);
